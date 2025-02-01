@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mygage-db.cjicuq22kcam.ap-northeast-2.rds.amazonaws.com:3306/alddak_dev
+    username: root
+    password: rkrpdhvms0102
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      connection-test-query: SELECT 1
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update    # 개발 환경에서는 update, 운영 환경에서는 validate
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    open-in-view: false

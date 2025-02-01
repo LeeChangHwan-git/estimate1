@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: estimate-service
+  profiles:
+    active: local
+
+server:
+  port: 8080

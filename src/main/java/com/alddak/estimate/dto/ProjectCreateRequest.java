@@ -7,14 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 // DTO
 @Getter
 @NoArgsConstructor
 public class ProjectCreateRequest {
+    private String userId;
     private ProjectType projectType;
     private String customProjectType;
-    private Category category;
+    private List<Category> categories;
     private LocalDate desiredDate;
     private String city;
     private String district;
