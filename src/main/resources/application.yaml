@@ -3,6 +3,14 @@ spring:
     name: estimate-service
   profiles:
     active: local
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 server:
   port: 8080
+
+file:
+  upload:
+    directory: ~/alddak

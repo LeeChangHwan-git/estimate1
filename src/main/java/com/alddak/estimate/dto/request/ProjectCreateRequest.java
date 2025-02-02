@@ -1,4 +1,4 @@
-package com.alddak.estimate.dto;
+package com.alddak.estimate.dto.request;
 
 import com.alddak.estimate.enums.Category;
 import com.alddak.estimate.enums.ProjectType;

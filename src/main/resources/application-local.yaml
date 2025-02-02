@@ -19,3 +19,14 @@ spring:
         format_sql: true
         show_sql: true
     open-in-view: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  packages-to-scan: com.alddak.estimate.controller
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json

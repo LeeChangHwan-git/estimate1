@@ -1,6 +1,6 @@
 package com.alddak.estimate.exception;
 
-import com.alddak.estimate.dto.ErrorResponse;
+import com.alddak.estimate.dto.response.ErrorResponse;
 import com.alddak.estimate.enums.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

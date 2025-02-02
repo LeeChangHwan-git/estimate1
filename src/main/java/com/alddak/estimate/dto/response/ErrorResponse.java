@@ -1,4 +1,4 @@
-package com.alddak.estimate.dto;
+package com.alddak.estimate.dto.response;
 
 import com.alddak.estimate.enums.ErrorCode;
 import lombok.AllArgsConstructor;

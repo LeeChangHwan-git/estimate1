@@ -1,5 +1,5 @@
 ### Case 1: 특정 카테고리들을 선택한 경우
-POST http://localhost:8080/api/v1/estimates
+POST http://localhost:8080/api/v1/projects
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Case 2: 카테고리를 선택하지 않은 경우 (모든 카테고리 생성)
-POST http://localhost:8080/api/v1/estimates
+POST http://localhost:8080/api/v1/projects
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ### Case 3: 기타 프로젝트 타입인 경우
-POST http://localhost:8080/api/v1/estimates
+POST http://localhost:8080/api/v1/projects
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 
 ### Case 4: 잘못된 사용자 ID로 요청
-POST http://localhost:8080/api/v1/estimates
+POST http://localhost:8080/api/v1/projects
 Content-Type: application/json
 
 {
@@ -66,9 +66,12 @@ Content-Type: application/json
   "startupType": "SELF"
 }
 
-### 정상 케이스: 전문가 회원의 견적요청 프로젝트 조회
+### CASE 5: 전문가 회원의 견적요청 프로젝트 조회
 GET http://localhost:8080/api/v1/estimates/expert/expert1
 ###
 GET http://localhost:8080/api/v1/estimates/expert/expert2
 ###
 GET http://localhost:8080/api/v1/estimates/expert/expert3
+
+### CASE 6: 회원이 견적요청중인 프로젝트 조회
+GET http://localhost:8080/api/v1/estimates/user/testuser

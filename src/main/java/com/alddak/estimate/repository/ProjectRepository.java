@@ -21,5 +21,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     );
 
     List<Project> findByStatusAndCategoryIn(ProjectStatus projectStatus, List<Category> expertCategories);
+
+    List<Project> findByClientAndStatus(User user, ProjectStatus status);
+
 }
 
