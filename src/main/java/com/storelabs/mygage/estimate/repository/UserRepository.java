@@ -1,0 +1,11 @@
+package com.storelabs.mygage.estimate.repository;
+
+import com.storelabs.mygage.estimate.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+}

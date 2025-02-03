@@ -14,3 +14,7 @@ server:
 file:
   upload:
     directory: ~/alddak
+
+## JWT스펙(RFC7518) 보안 요구사항으로 키는 최소256비트(32글자) 이상이어야 한다.
+jwt:
+  secret: "your-256-bit-secret-your-256-bit-secret-your-256-bit-secret-your-256-bit"

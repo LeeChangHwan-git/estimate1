@@ -1,0 +1,6 @@
+### CASE1: userid로 모든 프로젝트 조회
+GET http://localhost:8080/api/v1/projects/client1
+
+### CASE2: token 사용 모든 프로젝트 조회(client1)
+GET http://localhost:8080/api/v2/projects
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiJjbGllbnQxIn0.V76bkureVHdbP75iKPr4-VFeyiRfTSujW7Lo9ofK-k5-VCw7c0l5FiDYmYfS6stNDXj1Kpyk9ztyPFZ3ov7jWw
