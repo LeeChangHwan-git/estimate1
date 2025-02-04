@@ -1,6 +1,7 @@
 package com.storelabs.mygage.estimate.dto.request;
 
 import com.storelabs.mygage.estimate.enums.Category;
+import com.storelabs.mygage.estimate.enums.ProjectStatusDetail;
 import com.storelabs.mygage.estimate.enums.ProjectType;
 import com.storelabs.mygage.estimate.enums.StartupType;
 import lombok.Getter;
@@ -24,4 +25,5 @@ public class ProjectCreateRequest {
     private String squareFootage;
     private String budget;
     private StartupType startupType;
+    private ProjectStatusDetail projectStatusDetail;
 }

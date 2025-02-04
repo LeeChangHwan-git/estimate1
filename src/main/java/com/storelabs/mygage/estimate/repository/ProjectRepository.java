@@ -13,12 +13,8 @@ import java.util.List;
 // Repository
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    boolean existsByUserAndProjectTypeAndCategoryAndStatus(
-            User user,
-            ProjectType projectType,
-            Category category,
-            ProjectStatus status
-    );
+
+    boolean existsByUserAndProjectType(User user, ProjectType projectType);
 
     List<Project> findByStatusAndCategoryIn(ProjectStatus projectStatus, List<Category> expertCategories);
 

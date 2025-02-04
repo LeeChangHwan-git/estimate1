@@ -41,7 +41,7 @@ public class Project extends BaseTimeEntity {
 
     // projectStatus의 상세내용을 관리하는 변수
     @Enumerated(EnumType.STRING)
-    private ProjcetStatusDetail projectStatusDetail;
+    private ProjectStatusDetail projectStatusDetail;
 
     private LocalDate desiredDate;
     private String city;

@@ -22,6 +22,9 @@ public class ProjectController {
     private final ProjectService projectService;
     private final AuthenticationService authenticationService;
 
+    // 회원가입시
+    // ProjectType(self, franchise, ...)을 미지정하고 기본프로젝트를 생성한다.
+    // ProjectStatus - 진행중 && ProjectStatusDetail - 기본요청서 작성중 으로 된다.
     @PostMapping("/v1/projects/create")
     public ResponseEntity<Project> createProject(@RequestBody ProjectCreateRequest request) {
         projectService.createProject(request);
