@@ -25,7 +25,7 @@ public class UserService {
 
     public List<Project> findUserProjects(String userId) {
         User user = findUserById(userId);
-        return projectRepository.findByUserAndStatus(user, ProjectStatus.ESTIMATE_REQ);
+        return projectRepository.findByUserAndStatus(user, ProjectStatus.IN_PROGRESS);
     }
 
 }

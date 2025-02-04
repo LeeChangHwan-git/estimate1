@@ -22,13 +22,17 @@ public class ProjectService {
     private final UserService userService;
 
     // B2C 유저가 프로젝트를 생성
+    // category는 list<Category> 형태이다.
     @Transactional
     public void createProject(ProjectCreateRequest request) {
         User user = getRequestUser(request.getUserId());
 
         if (request.getCategories() != null && !request.getCategories().isEmpty()) {
+
             // 요청에 포함된 카테고리들에 대해 프로젝트 생성
             for (Category category : request.getCategories()) {
+                // @TODO test 및 중복의 기준에 대해서 표준화 필요
+                // 동일 userId, ProjectType, category가 존재하면 중복
                 checkDuplicateEstimate(user, request.getProjectType(), category);
                 Project project = buildProject(request);
                 project.setCategory(category);
@@ -56,7 +60,7 @@ public class ProjectService {
                 user,
                 projectType,
                 category,
-                ProjectStatus.ESTIMATE_REQ
+                ProjectStatus.IN_PROGRESS
         )) {
             throw new BusinessException(
                     ErrorCode.DUPLICATE_ESTIMATE_REQUEST,
@@ -76,7 +80,7 @@ public class ProjectService {
                 .projectType(request.getProjectType())
                 .customProjectType(request.getCustomProjectType())
                 // category는 위에서 개별적으로 설정하므로 여기서는 제외
-                .status(ProjectStatus.ESTIMATE_REQ)
+                .status(ProjectStatus.IN_PROGRESS)
                 .desiredDate(request.getDesiredDate())
                 .city(request.getCity())
                 .district(request.getDistrict())

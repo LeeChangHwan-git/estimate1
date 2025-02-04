@@ -1,6 +1,9 @@
 package com.storelabs.mygage.estimate.enums;
 
+import lombok.Getter;
+
 // Enums
+@Getter
 public enum ProjectType {
     UNMANNED_CAFE("무인카페"),
     UNMANNED_ICECREAM("무인아이스크림"),
@@ -12,7 +15,4 @@ public enum ProjectType {
         this.korName = korName;
     }
 
-    public String getKorName() {
-        return korName;
-    }
 }

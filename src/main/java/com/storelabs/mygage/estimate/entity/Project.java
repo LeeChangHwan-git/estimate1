@@ -2,14 +2,13 @@ package com.storelabs.mygage.estimate.entity;
 
 import com.storelabs.mygage.estimate.converter.CategoryEnumConverter;
 import com.storelabs.mygage.estimate.converter.ProjectTypeEnumConverter;
-import com.storelabs.mygage.estimate.enums.Category;
-import com.storelabs.mygage.estimate.enums.ProjectStatus;
-import com.storelabs.mygage.estimate.enums.ProjectType;
-import com.storelabs.mygage.estimate.enums.StartupType;
+import com.storelabs.mygage.estimate.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 // Entity
 @Entity
@@ -40,6 +39,10 @@ public class Project extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
+    // projectStatus의 상세내용을 관리하는 변수
+    @Enumerated(EnumType.STRING)
+    private ProjcetStatusDetail projectStatusDetail;
+
     private LocalDate desiredDate;
     private String city;
     private String district;
@@ -49,4 +52,15 @@ public class Project extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private StartupType startupType;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectRequest> projectRequests = new ArrayList<>();
+
+    // 양방향 관계 설정을 위한 편의 메서드
+    public void addProjectRequest(ProjectRequest request) {
+        this.projectRequests.add(request);
+        if (request.getProject() != this) {
+            request.setProject(this);
+        }
+    }
 }

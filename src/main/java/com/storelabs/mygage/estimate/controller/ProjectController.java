@@ -22,7 +22,7 @@ public class ProjectController {
     private final ProjectService projectService;
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/v1/projects")
+    @PostMapping("/v1/projects/create")
     public ResponseEntity<Project> createProject(@RequestBody ProjectCreateRequest request) {
         projectService.createProject(request);
         return ResponseEntity.ok().build();
