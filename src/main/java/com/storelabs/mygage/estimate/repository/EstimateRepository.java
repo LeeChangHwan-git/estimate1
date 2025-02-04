@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface EstimateRepository extends JpaRepository<Estimate, Long> {
-    List<Estimate> findByProjectUserAndProjectStatusNot(User client, ProjectStatus status);
-
-}
+//@Repository
+//public interface EstimateRepository extends JpaRepository<Estimate, Long> {
+//    List<Estimate> findByProjectUserAndProjectStatusNot(User client, ProjectStatus status);
+//
+//}

@@ -1,6 +1,7 @@
 package com.storelabs.mygage.estimate.service;
 
 import com.storelabs.mygage.estimate.dto.request.ProjectCreateRequest;
+import com.storelabs.mygage.estimate.dto.response.ProjectResponse;
 import com.storelabs.mygage.estimate.entity.Project;
 import com.storelabs.mygage.estimate.entity.User;
 import com.storelabs.mygage.estimate.enums.*;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,47 +20,36 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final UserService userService;
     private final ProjectRequestService projectRequestService;
+    private final UserFacadeService userFacadeService;
 
     // B2C 유저가 프로젝트를 생성
     // category는 list<Category> 형태이다.
     @Transactional
     public void createProject(ProjectCreateRequest request) {
         User user = getRequestUser(request.getUserId());
-        // @TODO test 및 중복의 기준에 대해서 표준화 필요
-        // 동일user, 동일projectType이면 중복처리
-        checkDuplicateProject(user, request.getProjectType());
+        projectAndRequestCreation(request, user);
+    }
+
+    @Transactional
+    public void createProjectByJwt(ProjectCreateRequest request, String token) {
+        User user = userFacadeService.getUserFromToken(token);
+        projectAndRequestCreation(request, user);
+    }
+
+    private void projectAndRequestCreation(ProjectCreateRequest request, User user) {
+        // 프로젝트 상태코드가 IN_PROGRESS인 프로젝트가 5개 넘으면 에러
+        checkInProgressProjectCnt(user);
+
+        // 동일user, 동일projectType, 동일 지역이면 중복처리
+        if (!"Y".equals(request.getDuplicateConfirmYn())) {
+            checkDuplicateProject(user, request.getProjectType(), request.getCity(), request.getDistrict(), request.getDong());
+        }
 
         if (request.getProjectStatusDetail() != null &&
-                request.getProjectStatusDetail() == ProjectStatusDetail.BASIC_FORM_WRITING) {
+                request.getProjectStatusDetail() == ProjectStatusDetail.BASIC_FORM_COMPLETED) {
             Project project = buildProject(request, user);
             projectRepository.save(project);
-
-        } else if (request.getProjectStatusDetail() != null &&
-                request.getProjectStatusDetail() == ProjectStatusDetail.BASIC_FORM_COMPLETED) {
-            Project project = buildProject(request, user);f
-            projectRepository.save(project);
-            projectRequestService.createProjectRequest();
-        }
-        if (request.getCategories() != null && !request.getCategories().isEmpty()) {
-            // 요청에 포함된 카테고리들에 대해 프로젝트 생성
-            for (Category category : request.getCategories()) {
-                // @TODO test 및 중복의 기준에 대해서 표준화 필요
-                // 동일 userId, ProjectType, category가 존재하면 중복
-                checkDuplicateEstimate(user, request.getProjectType(), category);
-                Project project = buildProject(request);
-                project.setCategory(category);
-                project.setUser(user);
-                projectRepository.save(project);
-            }
-        } else {
-            // 카테고리가 지정되지 않은 경우 모든 카테고리에 대해 프로젝트 생성
-            for (Category category : Category.values()) {
-                checkDuplicateEstimate(user, request.getProjectType(), category);
-                Project project = buildProject(request);
-                project.setCategory(category);
-                project.setUser(user);
-                projectRepository.save(project);
-            }
+            projectRequestService.createProjectRequest(project, user, request.getCategories());
         }
     }
 
@@ -66,18 +57,30 @@ public class ProjectService {
         return userService.findUserById(userId);
     }
 
-    private void checkDuplicateProject(User user, ProjectType projectType) {
-        if (projectRepository.existsByUserAndProjectType(user, projectType)) {
+    private void checkDuplicateProject(User user, ProjectType projectType, String city, String district, String dong) {
+        if (projectRepository.existsByUserAndProjectTypeAndCityAndDistrictAndDong(user, projectType, city, district, dong)) {
             throw new BusinessException(
-                    ErrorCode.DUPLICATE_ESTIMATE_REQUEST,
+                    ErrorCode.DUPLICATE_PROJECT_REQUEST,
                     user.getUserId(),
-                    projectType.name()
+                    projectType.name(),
+                    city,
+                    district,
+                    dong
             );
         }
     }
 
-    public List<Project> findProjectsByUserId(String userId) {
-        return projectRepository.findByUser_UserId(userId);
+    private void checkInProgressProjectCnt(User user) {
+        if (projectRepository.countByUserAndStatus(user, ProjectStatus.IN_PROGRESS) >= 5) {
+            throw new BusinessException(ErrorCode.OVER_PROJECT_MAX_COUNT);
+        }
+    }
+
+    @Transactional
+    public List<ProjectResponse> findProjectsByUserId(String userId) {
+        return projectRepository.findByUser_UserId(userId).stream()
+                .map(ProjectResponse::from)
+                .collect(Collectors.toList());
     }
 
     private Project buildProject(ProjectCreateRequest request, User user) {
@@ -90,7 +93,7 @@ public class ProjectService {
                 .desiredDate(request.getDesiredDate())
                 .city(request.getCity())
                 .district(request.getDistrict())
-                .address(request.getAddress())
+                .dong(request.getDong())
                 .squareFootage(request.getSquareFootage())
                 .budget(request.getBudget())
                 .startupType(request.getStartupType())

@@ -7,6 +7,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
 @Embeddable
 public class ExpertCategoryId implements Serializable {
     @Column(name = "user_id")

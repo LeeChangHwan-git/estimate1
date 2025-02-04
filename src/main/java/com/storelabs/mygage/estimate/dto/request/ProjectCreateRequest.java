@@ -21,9 +21,10 @@ public class ProjectCreateRequest {
     private LocalDate desiredDate;
     private String city;
     private String district;
-    private String address;
+    private String dong;
     private String squareFootage;
     private String budget;
     private StartupType startupType;
     private ProjectStatusDetail projectStatusDetail;
+    private String duplicateConfirmYn;
 }

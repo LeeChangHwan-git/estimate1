@@ -36,7 +36,6 @@ public class ProjectResponse {
                 .desiredDate(project.getDesiredDate())
                 .city(project.getCity())
                 .district(project.getDistrict())
-                .address(project.getAddress())
                 .squareFootage(project.getSquareFootage())
                 .budget(project.getBudget())
                 .startupType(project.getStartupType())

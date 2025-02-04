@@ -3,23 +3,26 @@ package com.storelabs.mygage.estimate.entity;
 import com.storelabs.mygage.estimate.converter.EstimateStatusEnumConverter;
 import com.storelabs.mygage.estimate.enums.EstimateStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Setter
+@Table(name = "estimates")
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder  // 빌더 패턴 추가
 public class Estimate extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long estimateNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_no")
-    private Project project;
+    @JoinColumn(name = "project_request_id")
+    private ProjectRequest projectRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id")
@@ -28,11 +31,11 @@ public class Estimate extends BaseTimeEntity {
     private String estimateAmt;
     private String detailedDescription;
 
-    @OneToMany(mappedBy = "estimate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FileEntity> files = new ArrayList<>();
-
     @Convert(converter = EstimateStatusEnumConverter.class)
     private EstimateStatus estimateStatus;
+
+    @OneToMany(mappedBy = "estimate", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FileEntity> files = new ArrayList<>();
 
     // 파일 추가 메서드
     public void addFile(FileEntity file) {

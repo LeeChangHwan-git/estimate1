@@ -1,5 +1,6 @@
 package com.storelabs.mygage.estimate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.storelabs.mygage.estimate.enums.UserType;
 import jakarta.persistence.*;
 import lombok.Getter;

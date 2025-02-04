@@ -1,5 +1,6 @@
 package com.storelabs.mygage.estimate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.storelabs.mygage.estimate.converter.CategoryEnumConverter;
 import com.storelabs.mygage.estimate.converter.ProjectTypeEnumConverter;
 import com.storelabs.mygage.estimate.enums.*;
@@ -46,7 +47,9 @@ public class Project extends BaseTimeEntity {
     private LocalDate desiredDate;
     private String city;
     private String district;
-    private String address;
+    // 동이 영어로 뭐지...
+    private String dong;
+
     private String squareFootage;
     private String budget;
 

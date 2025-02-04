@@ -13,8 +13,9 @@ import java.util.List;
 // Repository
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
+    long countByUserAndStatus(User user, ProjectStatus status);
 
-    boolean existsByUserAndProjectType(User user, ProjectType projectType);
+    boolean existsByUserAndProjectTypeAndCityAndDistrictAndDong(User user, ProjectType projectType, String city, String district, String dong);
 
     List<Project> findByStatusAndCategoryIn(ProjectStatus projectStatus, List<Category> expertCategories);
 

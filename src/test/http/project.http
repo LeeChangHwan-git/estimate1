@@ -1,6 +1,85 @@
-### CASE1: userid로 모든 프로젝트 조회
-GET http://localhost:8080/api/v1/projects/client1
+### 1.1. B2C 프로젝트 생성
+POST http://localhost:8080/api/v1/projects/create
+Content-Type: application/json
 
-### CASE2: token 사용 모든 프로젝트 조회(client1)
+{
+  "userId": "client1",
+  "projectType": "UNMANNED_CAFE",
+  "customProjectType": null,
+  "categories": ["FACILITY", "ELECTRICAL", "CLEAN"],
+  "desiredDate": "2025-03-01",
+  "city": "서울시",
+  "district": "강남구",
+  "dong": "삼성동",
+  "squareFootage": "50",
+  "budget": "50000000",
+  "startupType": "SELF",
+  "projectStatusDetail": "BASIC_FORM_COMPLETED",
+  "duplicateConfirmYn": null
+}
+
+### 1.2. 중복 체크에 걸리는 두 번째 요청 (동일한 정보로 재요청)
+POST http://localhost:8080/api/v1/projects/create
+Content-Type: application/json
+
+{
+  "userId": "client1",
+  "projectType": "UNMANNED_CAFE",
+  "customProjectType": null,
+  "categories": ["FACILITY", "ELECTRICAL", "CLEAN"],
+  "desiredDate": "2025-03-01",
+  "city": "서울시",
+  "district": "강남구",
+  "dong": "삼성동",
+  "squareFootage": "50",
+  "budget": "50000000",
+  "startupType": "SELF",
+  "projectStatusDetail": "BASIC_FORM_COMPLETED",
+  "duplicateConfirmYn": null
+}
+
+### 1.3. 중복 이후 duplicateConfirmYn에 Y 달아서 거래하면 정상
+POST http://localhost:8080/api/v1/projects/create
+Content-Type: application/json
+
+{
+  "userId": "client1",
+  "projectType": "UNMANNED_CAFE",
+  "customProjectType": null,
+  "categories": ["FACILITY", "ELECTRICAL", "CLEAN"],
+  "desiredDate": "2025-03-01",
+  "city": "서울시",
+  "district": "강남구",
+  "dong": "삼성동",
+  "squareFootage": "50",
+  "budget": "50000000",
+  "startupType": "SELF",
+  "projectStatusDetail": "BASIC_FORM_COMPLETED",
+  "duplicateConfirmYn": "Y"
+}
+### 2.1 무인까페인데 지역구가 다른걸로 생성
+POST http://localhost:8080/api/v1/projects/create
+Content-Type: application/json
+
+{
+  "userId": "client2",
+  "projectType": "UNMANNED_CAFE",
+  "customProjectType": null,
+  "categories": ["FACILITY", "ELECTRICAL", "CLEAN"],
+  "desiredDate": "2025-03-01",
+  "city": "서울시",
+  "district": "강서구",
+  "dong": "등촌동",
+  "squareFootage": "50",
+  "budget": "50000000",
+  "startupType": "SELF",
+  "projectStatusDetail": "BASIC_FORM_COMPLETED",
+  "duplicateConfirmYn": "Y"
+}
+
+### 3. B2C가 로그인 이후 메인화면에서 프로젝트 목록 조회
+GET http://localhost:8080/api/v1/projects/client2
+
+### 4. B2C 로그인 이후 메인화면에서 프로젝트 목록 조회 - JWT 이용
 GET http://localhost:8080/api/v2/projects
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiJjbGllbnQxIn0.V76bkureVHdbP75iKPr4-VFeyiRfTSujW7Lo9ofK-k5-VCw7c0l5FiDYmYfS6stNDXj1Kpyk9ztyPFZ3ov7jWw
