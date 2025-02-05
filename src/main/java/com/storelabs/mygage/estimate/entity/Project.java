@@ -9,7 +9,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // Entity
 @Entity
@@ -57,9 +59,9 @@ public class Project extends BaseTimeEntity {
     private StartupType startupType;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectRequest> projectRequests = new ArrayList<>();
+    @Builder.Default
+    private Set<ProjectRequest> projectRequests = new HashSet<>();
 
-    // 양방향 관계 설정을 위한 편의 메서드
     public void addProjectRequest(ProjectRequest request) {
         this.projectRequests.add(request);
         if (request.getProject() != this) {

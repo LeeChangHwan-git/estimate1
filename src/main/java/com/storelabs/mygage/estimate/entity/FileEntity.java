@@ -19,7 +19,7 @@ public class FileEntity extends BaseTimeEntity {
     private String storedFileName;      // 저장된 파일명
     private String filePath;            // 파일 저장 경로
     private String contentType;         // 파일 타입
-    private long fileSize;              // 파일 크기
+    private Long fileSize;              // 파일 크기
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estimate_no")

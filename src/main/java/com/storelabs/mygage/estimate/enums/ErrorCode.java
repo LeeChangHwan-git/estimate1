@@ -19,7 +19,14 @@ public enum ErrorCode {
             HttpStatus.OK,
             "진행중인 알딱가게 프로젝트 수가 5개이상입니다. 프로젝트 종료후 재시도해주세요"
     ),
-
+    OVER_ESTIMATE_MAX_COUNT(
+            HttpStatus.OK,
+            "하루 건수 제한 초과입니다."
+    ),
+    FILE_NOT_FOUND(
+            HttpStatus.OK,
+            "파일이 없습니다."
+    ),
     // Common 에러
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "Invalid input value: %s"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error: %s");

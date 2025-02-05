@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder  // 빌더 패턴 추가
+@Builder
 public class Estimate extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,7 @@ public class Estimate extends BaseTimeEntity {
     private EstimateStatus estimateStatus;
 
     @OneToMany(mappedBy = "estimate", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<FileEntity> files = new ArrayList<>();
 
     // 파일 추가 메서드
@@ -49,13 +50,13 @@ public class Estimate extends BaseTimeEntity {
         file.setEstimate(null);
     }
 
-    // Builder 패턴을 사용할 때 files 필드를 초기화
-    public static class EstimateBuilder {
-        private List<FileEntity> files = new ArrayList<>();
-
-        public EstimateBuilder files(List<FileEntity> files) {
-            this.files = files != null ? files : new ArrayList<>();
-            return this;
-        }
-    }
+//    // Builder 패턴을 사용할 때 files 필드를 초기화
+//    public static class EstimateBuilder {
+//        private List<FileEntity> files = new ArrayList<>();
+//
+//        public EstimateBuilder files(List<FileEntity> files) {
+//            this.files = files != null ? files : new ArrayList<>();
+//            return this;
+//        }
+//    }
 }

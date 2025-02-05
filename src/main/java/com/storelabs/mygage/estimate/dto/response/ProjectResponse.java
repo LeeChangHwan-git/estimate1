@@ -25,8 +25,13 @@ public class ProjectResponse {
     private String squareFootage;
     private String budget;
     private StartupType startupType;
+    private int totalEstimateCount;
 
     public static ProjectResponse from(Project project) {
+        int estimateCount = project.getProjectRequests().stream()
+                .mapToInt(pr -> pr.getEstimates().size())
+                .sum();
+
         return ProjectResponse.builder()
                 .projectNo(project.getProjectNo())
                 .projectType(project.getProjectType())
@@ -39,6 +44,7 @@ public class ProjectResponse {
                 .squareFootage(project.getSquareFootage())
                 .budget(project.getBudget())
                 .startupType(project.getStartupType())
+                .totalEstimateCount(estimateCount)
                 .build();
     }
 }

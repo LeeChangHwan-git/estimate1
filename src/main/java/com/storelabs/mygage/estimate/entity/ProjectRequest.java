@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "project_requests")
@@ -35,7 +37,8 @@ public class ProjectRequest extends BaseTimeEntity {
 
     // 견적서 양방향 관계 추가
     @OneToMany(mappedBy = "projectRequest", cascade = CascadeType.ALL)
-    private List<Estimate> estimates = new ArrayList<>();
+    @Builder.Default
+    private Set<Estimate> estimates = new HashSet<>();
 
     // 양방향 관계 설정을 위한 편의 메서드
     public void setProject(Project project) {

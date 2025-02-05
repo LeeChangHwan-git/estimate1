@@ -59,7 +59,7 @@ public class ProjectRequestService {
         // - 프로젝트 상태가 IN_PROGRESS
         // - 요청의 카테고리가 전문가의 카테고리 중 하나와 일치
         // - 견적이 없는 요청만 조회
-        return projectRequestRepository.findByProjectStatusAndCategoryInWithoutEstimates(ProjectStatus.IN_PROGRESS, categories).stream()
+        return projectRequestRepository.findByProjectStatusAndCategoryInWithoutEstimates(ProjectStatus.IN_PROGRESS, categories, expertId).stream()
                 .map(ProjectRequestResponse::from)
                 .collect(Collectors.toList());
     }

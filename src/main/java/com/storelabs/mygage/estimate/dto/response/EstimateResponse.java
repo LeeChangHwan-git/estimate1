@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EstimateResponse {
     private Long estimateNo;
-    private ExpertInfo expertInfo;  // ExpertInfo 객체 직접 사용
+    private String expertId;  // ExpertInfo 객체 대신 ID만 사용
+    private String expertName; // 필요한 경우 전문가 이름도 추가
     private String amount;
     private String description;
     private List<String> fileNames;
@@ -21,7 +22,8 @@ public class EstimateResponse {
     public static EstimateResponse from(Estimate estimate) {
         return new EstimateResponse(
                 estimate.getEstimateNo(),
-                estimate.getExpertInfo(),   // ExpertInfo 객체 그대로 전달
+                estimate.getExpertInfo().getUser().getUserId(),  // ID만 가져오기
+                estimate.getExpertInfo().getUser().getName(),    // 이름만 가져오기
                 estimate.getEstimateAmt(),
                 estimate.getDetailedDescription(),
                 estimate.getFiles().stream()

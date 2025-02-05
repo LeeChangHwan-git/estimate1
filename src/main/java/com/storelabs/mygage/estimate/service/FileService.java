@@ -44,7 +44,13 @@ public class FileService {
 
     @Transactional(readOnly = true)
     public List<FileEntity> getFilesByIds(List<Long> fileIds) {
-        return fileRepository.findAllById(fileIds);
+        List<FileEntity> files = fileRepository.findAllById(fileIds);
+
+        if (files.isEmpty()) {
+            throw new BusinessException(ErrorCode.FILE_NOT_FOUND);
+        }
+
+        return files;
     }
 
     private FileEntity saveFile(MultipartFile multipartFile) throws IOException {

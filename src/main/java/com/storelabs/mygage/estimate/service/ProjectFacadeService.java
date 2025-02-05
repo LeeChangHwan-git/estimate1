@@ -24,7 +24,7 @@ public class ProjectFacadeService {
     public List<ProjectResponse> findProjectsByUserIdByJwt(String token) {
         String userIdFromToken = authenticationService.getUserIdFromToken(token);
 
-        return projectRepository.findByUser_UserId(userIdFromToken).stream()
+        return projectRepository.findByUserIdWithEstimates(userIdFromToken).stream()
                 .map(ProjectResponse::from)
                 .collect(Collectors.toList());
     }

@@ -23,8 +23,9 @@ POST http://localhost:8080/api/v1/estimates/create
 Content-Type: application/json
 
 {
-  "projectRequestId": 15,
-  "estimateAmt": "5000",
+  "userId": "expert2",
+  "projectRequestId": 7,
+  "estimateAmt": "7",
   "description": "This is a test estimate for project 15.",
-  "fileIds": [1, 2, 3]
+  "fileIds": [1, 2]
 }

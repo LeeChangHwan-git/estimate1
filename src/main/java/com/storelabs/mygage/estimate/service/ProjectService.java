@@ -78,7 +78,7 @@ public class ProjectService {
 
     @Transactional
     public List<ProjectResponse> findProjectsByUserId(String userId) {
-        return projectRepository.findByUser_UserId(userId).stream()
+        return projectRepository.findByUserIdWithEstimates(userId).stream()
                 .map(ProjectResponse::from)
                 .collect(Collectors.toList());
     }

@@ -24,6 +24,9 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Project> projects = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ExpertInfo expertInfo;
+
     // 양방향 관계 설정을 위한 편의 메서드
     public void addProject(Project project) {
         this.projects.add(project);
