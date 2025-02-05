@@ -48,4 +48,14 @@ public class Estimate extends BaseTimeEntity {
         this.files.remove(file);
         file.setEstimate(null);
     }
+
+    // Builder 패턴을 사용할 때 files 필드를 초기화
+    public static class EstimateBuilder {
+        private List<FileEntity> files = new ArrayList<>();
+
+        public EstimateBuilder files(List<FileEntity> files) {
+            this.files = files != null ? files : new ArrayList<>();
+            return this;
+        }
+    }
 }

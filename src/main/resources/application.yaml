@@ -7,13 +7,14 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+      enabled: true
 
 server:
   port: 8080
 
 file:
   upload:
-    directory: ~/alddak
+    directory: C:/alddak/estimate/uploads
 
 ## JWT스펙(RFC7518) 보안 요구사항으로 키는 최소256비트(32글자) 이상이어야 한다.
 jwt:

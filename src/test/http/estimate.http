@@ -1,0 +1,30 @@
+POST http://localhost:8080/api/v1/files
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="test1.txt"
+Content-Type: text/plain
+
+This is a test file 1.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="test2.txt"
+Content-Type: text/plain
+
+This is a test file 2.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="test3.txt"
+Content-Type: text/plain
+
+This is a test file 3.
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 2. 견적생성 테스트
+POST http://localhost:8080/api/v1/estimates/create
+Content-Type: application/json
+
+{
+  "projectRequestId": 15,
+  "estimateAmt": "5000",
+  "description": "This is a test estimate for project 15.",
+  "fileIds": [1, 2, 3]
+}

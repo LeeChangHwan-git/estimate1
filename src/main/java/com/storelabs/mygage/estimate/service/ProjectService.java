@@ -49,7 +49,7 @@ public class ProjectService {
                 request.getProjectStatusDetail() == ProjectStatusDetail.BASIC_FORM_COMPLETED) {
             Project project = buildProject(request, user);
             projectRepository.save(project);
-            projectRequestService.createProjectRequest(project, user, request.getCategories());
+            projectRequestService.createProjectRequest(project, request.getCategories());
         }
     }
 

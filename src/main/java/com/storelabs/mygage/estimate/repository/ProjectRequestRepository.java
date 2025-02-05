@@ -17,11 +17,11 @@ public interface ProjectRequestRepository extends JpaRepository<ProjectRequest, 
      */
     @Query("SELECT pr FROM ProjectRequest pr " +
             "JOIN FETCH pr.project p " +
-            "JOIN FETCH pr.user u " +
-            "LEFT JOIN FETCH u.projects " +  // User의 projects도 함께 로딩
+            "LEFT JOIN pr.estimates e " +
             "WHERE p.status = :status " +
-            "AND pr.category IN :categories")
-    List<ProjectRequest> findByProjectStatusAndCategoryIn(
+            "AND pr.category IN :categories " +
+            "AND e IS NULL")
+    List<ProjectRequest> findByProjectStatusAndCategoryInWithoutEstimates(
             @Param("status") ProjectStatus status,
             @Param("categories") List<Category> categories
     );

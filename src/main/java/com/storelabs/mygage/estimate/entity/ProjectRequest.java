@@ -26,10 +26,6 @@ public class ProjectRequest extends BaseTimeEntity {
     @JoinColumn(name = "project_no")
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Convert(converter = CategoryEnumConverter.class)
     private Category category;
 
@@ -46,13 +42,6 @@ public class ProjectRequest extends BaseTimeEntity {
         this.project = project;
         if (!project.getProjectRequests().contains(this)) {
             project.getProjectRequests().add(this);
-        }
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-        if (!user.getProjectRequests().contains(this)) {
-            user.getProjectRequests().add(this);
         }
     }
 

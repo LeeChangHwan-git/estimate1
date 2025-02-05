@@ -22,17 +22,16 @@ public class ProjectRequestService {
     private final ProjectRequestRepository projectRequestRepository;
     private final ExpertCategoryRepository expertCategoryRepository;
 
-    public void createProjectRequest(Project project, User user, List<Category> categoryList) {
+    public void createProjectRequest(Project project, List<Category> categoryList) {
         List<ProjectRequest> projectRequests = categoryList.stream()
-                .map(category -> buildProjectRequest(project, user, category))
+                .map(category -> buildProjectRequest(project, category))
                 .collect(Collectors.toList());
 
         projectRequestRepository.saveAll(projectRequests);
     }
 
-    private ProjectRequest buildProjectRequest(Project project, User user, Category category) {
+    private ProjectRequest buildProjectRequest(Project project, Category category) {
         return ProjectRequest.builder()
-                .user(user)
                 .project(project)
                 .category(category)
                 .projectRequestStatus(ProjectRequestStatus.ESTIMATE_REQUESTED)
@@ -59,7 +58,8 @@ public class ProjectRequestService {
         // 3. 조건에 맞는 ProjectRequest 조회
         // - 프로젝트 상태가 IN_PROGRESS
         // - 요청의 카테고리가 전문가의 카테고리 중 하나와 일치
-        return projectRequestRepository.findByProjectStatusAndCategoryIn(ProjectStatus.IN_PROGRESS, categories).stream()
+        // - 견적이 없는 요청만 조회
+        return projectRequestRepository.findByProjectStatusAndCategoryInWithoutEstimates(ProjectStatus.IN_PROGRESS, categories).stream()
                 .map(ProjectRequestResponse::from)
                 .collect(Collectors.toList());
     }
