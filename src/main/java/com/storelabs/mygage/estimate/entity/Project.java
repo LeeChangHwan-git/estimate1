@@ -37,7 +37,7 @@ public class Project extends BaseTimeEntity {
     private String customProjectType;
 
     @Convert(converter = CategoryEnumConverter.class)
-    private Category category;
+    private List<Category> categories;
 
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;

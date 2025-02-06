@@ -40,7 +40,7 @@ public class ProjectService {
         // 프로젝트 상태코드가 IN_PROGRESS인 프로젝트가 5개 넘으면 에러
         checkInProgressProjectCnt(user);
 
-        // 동일user, 동일projectType, 동일 지역이면 중복처리
+        // 동일user, 동일projectType, 동일 지역이면 중복인식으로 알고 warning을 띄우기위해 http200 중복메세지 발행한다
         if (!"Y".equals(request.getDuplicateConfirmYn())) {
             checkDuplicateProject(user, request.getProjectType(), request.getCity(), request.getDistrict(), request.getDong());
         }
@@ -88,7 +88,7 @@ public class ProjectService {
                 .user(user)
                 .projectType(request.getProjectType())
                 .customProjectType(request.getCustomProjectType())
-                // category는 위에서 개별적으로 설정하므로 여기서는 제외
+                .categories(request.getCategories())
                 .status(ProjectStatus.IN_PROGRESS)
                 .desiredDate(request.getDesiredDate())
                 .city(request.getCity())
