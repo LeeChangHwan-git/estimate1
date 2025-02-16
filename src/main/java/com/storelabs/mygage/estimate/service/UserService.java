@@ -19,7 +19,7 @@ public class UserService {
     private final ProjectRepository projectRepository;
 
     public User findUserById(String userId) {
-        return userRepository.findById(userId)
+        return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
     }
 

@@ -8,9 +8,11 @@ import lombok.*;
 @Getter
 public class ExpertInfo extends BaseTimeEntity {
     @Id
-    private String expertId;
+    @Column(name = "expert_no")
+    private Long expertNo;
 
     @OneToOne
-    @JoinColumn(name = "expert_id", referencedColumnName = "userId")
+    @JoinColumn(name = "expert_no", referencedColumnName = "userNo")
+    @MapsId
     private User user;
 }

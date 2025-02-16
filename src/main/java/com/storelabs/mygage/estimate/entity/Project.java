@@ -1,7 +1,6 @@
 package com.storelabs.mygage.estimate.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.storelabs.mygage.estimate.converter.CategoryEnumConverter;
+import com.storelabs.mygage.estimate.converter.CategoryListConverter;
 import com.storelabs.mygage.estimate.converter.ProjectTypeEnumConverter;
 import com.storelabs.mygage.estimate.enums.*;
 import jakarta.persistence.*;
@@ -27,7 +26,7 @@ public class Project extends BaseTimeEntity {
     private Long projectNo;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_no")
     private User user;
 
     // enum 값 추가가 많을 것으로 보여서 Converter를 만듬
@@ -36,8 +35,10 @@ public class Project extends BaseTimeEntity {
     // @TODO 기타프로젝트에 맵핑되는 카테고리전문가를 어떻게 식별할 것인가
     private String customProjectType;
 
-    @Convert(converter = CategoryEnumConverter.class)
-    private List<Category> categories;
+    @Convert(converter = CategoryListConverter.class)
+    @Column(name = "categories", columnDefinition = "TEXT")
+    @Builder.Default
+    private List<Category> categories = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
@@ -62,9 +63,14 @@ public class Project extends BaseTimeEntity {
     @Builder.Default
     private Set<ProjectRequest> projectRequests = new HashSet<>();
 
+    // Getter에 null 체크 추가
+    public List<Category> getCategories() {
+        return categories != null ? categories : new ArrayList<>();
+    }
+
     public void addProjectRequest(ProjectRequest request) {
-        this.projectRequests.add(request);
-        if (request.getProject() != this) {
+        if (request != null && !this.projectRequests.contains(request)) {
+            this.projectRequests.add(request);
             request.setProject(this);
         }
     }

@@ -48,7 +48,6 @@ public class EstimateService {
         ExpertEstimateDailyCount dailyCount = expertEstimateDailyCountRepository.findByExpertAndUseDate(expertInfo.getUser(), today)
                 .orElseGet(() -> new ExpertEstimateDailyCount(expertInfo.getUser(), today, 5));
 
-        System.out.println(dailyCount);
 
         if (!dailyCount.canCreateEstimate()) {
             throw new BusinessException(ErrorCode.OVER_ESTIMATE_MAX_COUNT);
@@ -69,15 +68,12 @@ public class EstimateService {
         // 4. 파일 연결
         // 파일 처리 부분에 로그 추가
         if (request.getFileIds() != null && !request.getFileIds().isEmpty()) {
-            System.out.println("FileIds: " + request.getFileIds());
             List<FileEntity> files = fileService.getFilesByIds(request.getFileIds());
-            System.out.println("Found files: " + files.size());
 
             // null check 추가
             files.stream()
                     .filter(Objects::nonNull)
                     .forEach(file -> {
-                        System.out.println("Processing file: " + file.getId());
                         estimate.addFile(file);
                     });
         }

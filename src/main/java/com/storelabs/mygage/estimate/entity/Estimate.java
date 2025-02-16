@@ -25,7 +25,7 @@ public class Estimate extends BaseTimeEntity {
     private ProjectRequest projectRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "expert_id")
+    @JoinColumn(name = "expert_no")
     private ExpertInfo expertInfo;
 
     private String estimateAmt;

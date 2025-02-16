@@ -19,11 +19,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     boolean existsByUserAndProjectTypeAndCityAndDistrictAndDong(User user, ProjectType projectType, String city, String district, String dong);
 
-    List<Project> findByStatusAndCategoryIn(ProjectStatus projectStatus, List<Category> expertCategories);
-
     List<Project> findByUserAndStatus(User user, ProjectStatus status);
-
-    List<Project> findByUser_UserId(String userId);
 
     @Query("SELECT DISTINCT p FROM Project p " +
             "LEFT JOIN FETCH p.projectRequests pr " +

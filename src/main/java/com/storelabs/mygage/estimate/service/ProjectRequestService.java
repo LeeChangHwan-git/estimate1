@@ -4,7 +4,6 @@ import com.storelabs.mygage.estimate.dto.response.ProjectRequestResponse;
 import com.storelabs.mygage.estimate.entity.ExpertCategory;
 import com.storelabs.mygage.estimate.entity.Project;
 import com.storelabs.mygage.estimate.entity.ProjectRequest;
-import com.storelabs.mygage.estimate.entity.User;
 import com.storelabs.mygage.estimate.enums.Category;
 import com.storelabs.mygage.estimate.enums.ProjectRequestStatus;
 import com.storelabs.mygage.estimate.enums.ProjectStatus;
@@ -13,6 +12,7 @@ import com.storelabs.mygage.estimate.repository.ProjectRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +23,9 @@ public class ProjectRequestService {
     private final ExpertCategoryRepository expertCategoryRepository;
 
     public void createProjectRequest(Project project, List<Category> categoryList) {
+        if (categoryList == null) {
+            categoryList = new ArrayList<>();
+        }
         List<ProjectRequest> projectRequests = categoryList.stream()
                 .map(category -> buildProjectRequest(project, category))
                 .collect(Collectors.toList());

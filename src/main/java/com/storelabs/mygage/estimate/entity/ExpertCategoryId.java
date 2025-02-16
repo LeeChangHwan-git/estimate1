@@ -18,8 +18,8 @@ import java.io.Serializable;
 @Getter
 @Embeddable
 public class ExpertCategoryId implements Serializable {
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "expert_no")
+    private Long expertNo;
 
     @Convert(converter = CategoryEnumConverter.class)
     @Column(name = "category", nullable = false)

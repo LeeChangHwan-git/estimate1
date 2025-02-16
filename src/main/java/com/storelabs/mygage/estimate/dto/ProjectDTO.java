@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -13,7 +15,8 @@ public class ProjectDTO {
     private UserDTO user;
     private ProjectType projectType;
     private String customProjectType;
-    private Category category;
+    @Builder.Default
+    private List<Category> categories = new ArrayList<>();
     private ProjectStatus status;
     private ProjectStatusDetail projectStatusDetail;
     private LocalDate desiredDate;

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "expert_estimate_daily_count",
         indexes = @Index(name = "idx_expert_date",
-                columnList = "expert_id, use_date"))
+                columnList = "expert_no, expertNo"))
 @Getter
 @NoArgsConstructor
 @ToString
@@ -21,7 +21,7 @@ public class ExpertEstimateDailyCount extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "expert_id")
+    @JoinColumn(name = "expert_no")
     private User expert;
 
     private LocalDate useDate;

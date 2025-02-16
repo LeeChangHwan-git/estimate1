@@ -31,7 +31,7 @@ public class ProjectRequestResponse {
                                 .build())
                         .projectType(projectRequest.getProject().getProjectType())
                         .customProjectType(projectRequest.getProject().getCustomProjectType())
-                        .category(projectRequest.getProject().getCategory())
+                        .categories(projectRequest.getProject().getCategories())
                         .status(projectRequest.getProject().getStatus())
                         .projectStatusDetail(projectRequest.getProject().getProjectStatusDetail())
                         .desiredDate(projectRequest.getProject().getDesiredDate())
